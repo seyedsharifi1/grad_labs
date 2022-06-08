@@ -60,7 +60,7 @@ ansible all -m ansible.builtin.setup -a 'filter=ansible_*_mb'|more
 ansible all -m ansible.builtin.setup -a 'filter=ansible_distribution'
 ansible all -m ansible.builtin.setup -a 'filter=ansible_hostname'
 
-## Original Playbook - see file.yaml
+alter facts.yaml to filter on the ansible_hostname or ansible_distribution
 
 
 -- need to add custom facts example
