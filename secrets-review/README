@@ -51,14 +51,17 @@ ansible-1 ansible_host=54.145.1.34 ansible_user=ubuntu
 ansible-1
 ansible-2
 
+## create a secret
 
-ansible-vault create group_vars/web - take note of the password you use
+ansible-vault create group_vars/web # take note of the password you use
  username: ZZZZZ
  password: YYYYY
 
 
-ansible-playbook secrets.yaml --ask-vault-password
+ansible-playbook secrets.yaml # this will fail
+ansible-playbook secrets.yaml --ask-vault-password # this command and the next are the same
 ansible-playbook secrets.yaml --vault-id @prompt
 
-- before running next command create a whatpassword in homedir with plain text password to unecrypt the password file
+### create a plain text file holding your encyption password that vault can use to unencrypt your file
+echo "YOUR_ENCRYPTION_PASSWORD" > ~/whatpassword
 ansible-playbook secrets.yaml --vault-password-file=~/whatpassword

@@ -51,16 +51,34 @@ ansible-1 ansible_host=54.145.1.34 ansible_user=ubuntu
 ansible-1
 ansible-2
 
-## Adhoc
+## Adhoc - getting facts
 
 ansible all -m ansible.builtin.setup |more
-ansible ansible-1 -m setup |more
+ansible ansible-1 -m setup |more # see what is reported for ansible-1
 ansible all -m ansible.builtin.setup -a 'filter=ansible_*_mb'
-ansible all -m ansible.builtin.setup -a 'filter=ansible_*_mb'|more
 ansible all -m ansible.builtin.setup -a 'filter=ansible_distribution'
 ansible all -m ansible.builtin.setup -a 'filter=ansible_hostname'
+ansible all -m ansible.builtin.setup -a 'filter=ansible_eth[0-2]'
 
-alter facts.yaml to filter on the ansible_hostname or ansible_distribution
+## Playbook - getting facts 
 
+ansible-playbook facts.yaml # you will get all facts and a subset in the playbook
 
--- need to add custom facts example
+alter facts.yaml to filter on the ansible_hostname or ansible_distribution (there are some examples)
+
+## custom facts 
+
+### run a playbook to copy facts.d and contents to /etc/ansible/ (custom facts directory) on the web group
+
+ansible-playbook copy.yaml 
+
+ansible web -a "ls -l /etc/ansible/facts.d/"
+
+### then check that the custom fact is reported
+
+ansible web -m ansible.builtin.setup -a 'filter=ansible_local'
+
+### create some additional files in facts.d in the same format as pete.fact and rerun the copy.yaml
+
+ansible-playbook copy.yaml 
+ansible web -m ansible.builtin.setup -a 'filter=ansible_local'
