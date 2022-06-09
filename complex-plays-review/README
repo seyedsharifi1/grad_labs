@@ -67,7 +67,7 @@ ansible-playbook host-pattern.yaml -e 'hostname=uk,!ansible-2'
 
 ## playbook - host-pattern.yaml
 alter the line with various patterns
-  hosts: '{{ hostname }}'
+  hosts: web
 
 ## BREAKING UP PLAYBOOKS FOR REUSE
 
