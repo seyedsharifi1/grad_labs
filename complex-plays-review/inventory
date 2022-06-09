@@ -6,3 +6,15 @@ ansible-1 ansible_host=34.224.216.141 ansible_user=ubuntu
 [web]
 ansible-1
 ansible-2
+
+[uk]
+ansible-3
+ansible-2
+
+[germany]
+ansible-1
+
+[emea:children]
+uk
+germany
+
