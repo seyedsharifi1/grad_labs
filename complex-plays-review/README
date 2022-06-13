@@ -67,4 +67,29 @@ ansible-playbook host-pattern.yaml -e 'hostname=uk,!ansible-2'
 
 ## playbook - host-pattern.yaml
 alter the line with various patterns
-  hosts: '{{ hostname }}'
+  hosts: web
+
+## BREAKING UP PLAYBOOKS FOR REUSE
+
+## INCLUDE roles and tasks / IMPORT playbooks, roles and tasks
+PLEASE READ THIS LINK -  https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html#playbooks-reuse
+both include and impact are similiar
+
+include - dynamic loading of role, task
+ include_* can make use of results from earlier tasks
+ include_* can use loops
+import - static loading of role, task and playbook
+ import_* can NOT make use of results or AFFECT other tasks 
+ 
+ansible-playbook include.yaml # include roles and task examples NOTICE it uses loops
+
+ansible-playbook import.yaml # import playbooks, roles and task examples it DOES NOT use loops
+
+edit import.yaml and uncomment the following line so it TRIES to use loops
+ #loop: ['TRUE','FALSE']
+so it looks like this
+ loop: ['TRUE','FALSE']
+
+rerun the ansible-playbook command
+
+ansible-playbook import.yaml # notice the error message tells you NO loops allowed

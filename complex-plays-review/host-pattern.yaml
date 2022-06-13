@@ -1,6 +1,6 @@
 ---
 - name: blahblahblah
-  hosts: '{{ hostname }}'
+  hosts: emea
   #gather_facts: no
   #become: true
 
